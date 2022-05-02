@@ -9,10 +9,13 @@ pub fn build(b: *std.build.Builder) void {
     lib.setBuildMode(mode);
     lib.install();
     lib.strip = true;
+    lib.linker_allow_shlib_undefined = true;
+    lib.emit_bin = .{ .emit_to = "lib.node" };
+    lib.linkSystemLibrary("c");
+    lib.addIncludeDir("deps/node-v18.0.0/include/node");
+    //const main_tests = b.addTest("src/main.zig");
+    //main_tests.setBuildMode(mode);
 
-    const main_tests = b.addTest("src/main.zig");
-    main_tests.setBuildMode(mode);
-
-    const test_step = b.step("test", "Run library tests");
-    test_step.dependOn(&main_tests.step);
+    //const test_step = b.step("test", "Run library tests");
+    //test_step.dependOn(&main_tests.step);
 }
