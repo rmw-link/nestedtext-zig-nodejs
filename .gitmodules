@@ -1,0 +1,3 @@
+[submodule "nestedtext"]
+	path = nestedtext
+	url = git@github.com:LewisGaul/zig-nestedtext.git

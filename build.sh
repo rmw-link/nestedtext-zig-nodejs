@@ -10,8 +10,6 @@ if [ ! -d "$NODE" ] ;then
 ./download-node-headers.sh
 fi
 
-clear
-
 zig build-lib \
 -lc \
 --strip \
