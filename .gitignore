@@ -1,0 +1,5 @@
+*.node
+deps/node-v18.0.0/include/node/
+zig-cache/
+src/wip.zig
+zig-out/lib
