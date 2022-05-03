@@ -20,8 +20,10 @@ fn encode(env: napi.env, input: napi.string) !napi.string {
     defer tree.deinit();
     var json_tree = try tree.root.?.toJson(allocator);
     defer json_tree.deinit();
-    var buffer: [1280]u8 = undefined;
-    var fbs = std.io.fixedBufferStream(&buffer);
-    try json_tree.root.jsonStringify(.{}, fbs.writer());
-    return napi.string.new(env, .utf8, fbs.getWritten());
+
+    var buffer = std.ArrayList(u8).init(allocator);
+    errdefer buffer.deinit();
+    try json_tree.root.jsonStringify(.{}, buffer.writer());
+
+    return napi.string.new(env, .utf8, buffer.items);
 }
