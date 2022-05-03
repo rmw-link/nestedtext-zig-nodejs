@@ -9,10 +9,10 @@ comptime {
 }
 
 fn init(env: napi.env, exports: napi.object) !void {
-    try exports.set(env, "encode", try napi.bind.function(env, encode, "encode", allocator));
+    try exports.set(env, "nt2json", try napi.bind.function(env, nt2json, "nt2json", allocator));
 }
 
-fn encode(env: napi.env, input: napi.string) !napi.string {
+fn nt2json(env: napi.env, input: napi.string) !napi.string {
     const slice = try input.get(env, .utf8, allocator);
     defer allocator.free(slice);
     var p = Parser.init(allocator, .{});
